@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+    {% load static %}
+    <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+</head>
+<body>
+<form>
+    a: <input type="text" id="a" name="a" value="1"> <br>
+    b: <input type="text" id="b" name="b" value="2"> <br>
+    <p>result: <span id='okk'></span></p>
+    <button type="button" id='sum'>ajax提交</button>
+</form>
+<script>
+    <!--POST REQUEST PASS-->
+    <!--$(document).ready(function(){-->
+      <!--$("#sum").click(function(){-->
+        <!--var a = $("#a").val();-->
+        <!--var b = $("#b").val();-->
+        <!--$.post("add/",{'a':a,'b':b}, function(ret){-->
+            <!--$('#result').html(ret.result)-->
+        <!--})-->
+      <!--});-->
+    <!--});-->
+
+     $(document).ready(function(){
+      $("#sum").click(function(){
+        var a = $("#a").val();
+        var b = $("#b").val();
+        $.ajax({
+            type:"POST",
+            url:"add/",
+            data:{"a":a, "b":b},
+            success: function(ret){
+                    $('#okk').html(ret.added)
+                     },
+        })
+      });
+    });
+
+</script>
+</body>
+</html>

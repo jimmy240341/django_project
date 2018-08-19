@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+教程例表：
+<ul>
+    {% for i in tutoriallist %}
+        <li>{{i}}</li>
+    {% empty %}
+        <li>抱歉，列表为空</li>
+    {% endfor %}
+</ul>
+<!---
+{% for i in tutoriallist %}
+{{i}} {% if not forlooop.last %} {% endif %}
+{% endfor %}
+
+{% for i in tutoriallist %}
+{{i}}
+{% endfor %}
+
+站点：{{tutoriallist.site}}; 地址：{{tutoriallist.content}}
+-->
+</body>
+</html>

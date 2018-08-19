@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>echarts</title>
+    <!--引入ECharts文件-->
+    {% load static %}
+    <script type="text/javascript" src="{% static 'js/echarts/echarts-all.js' %}"></script>
+     <!--<script type="text/javascript" src="echarts/echarts.min.js"></script>-->
+    <style type="text/css">
+        * {
+            padding: 0;
+ margin: 0;
+ }
+    </style>
+</head>
+<body>
+    <p>Echarts举例：</p><br />
+    <div id="main" style="width: 800px; height: 800px;margin: auto;"></div>
+       <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+ var option = option = {
+    title: {
+        title: "速度",
+    },
+    tooltip : {
+        formatter: "{a} <br/>{b} : {c}%"
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    series : [
+        {
+            name:'业务指标',
+            type:'gauge',
+            detail : {formatter:'{value}%'},
+            data:[{value: 30, name: '完成率'}]
+        }
+    ]
+};
+
+ myChart.setOption(option);
+ </script>
+</body>
+</html>

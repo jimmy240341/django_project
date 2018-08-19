@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/echarts/echarts.min.js' %}"></script>
+</head>
+<body>
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>测试报表</h5>
+                    </div>
+                    <div class="ibox-content">
+						<div id="main" style="width: 800px;height:600px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    	// 直接页面写的调用ajax的方法
+    	function callbackFn(myChart,jsonURL){
+    		$.ajax({
+	    		 url:jsonURL,
+		         dataType:"json",
+		         success:function(jsonData){
+
+			         myChart.setOption({
+				        xAxis: {
+				            data: jsonData.categories
+				        },
+				        series: [{
+				            // 根据名字对应到相应的系列
+				            name: '销量',
+				            data: jsonData.data
+				        }]
+				    });
+				    // 设置加载等待隐藏
+				    myChart.hideLoading();
+		         }
+	         });
+    	}
+    	// 初始化echar报表的方法
+    	function initReport(myChart){
+
+    		// 显示标题，图例和空的坐标轴
+			myChart.setOption({
+			    title: {
+			        text: '异步数据加载示例'
+			    },
+			    tooltip: {},
+			    legend: {
+			        data:['销量']
+			    },
+			    xAxis: {
+			        data: []
+			    },
+			    yAxis: {},
+			    series: [{
+			        name: '销量',
+			        type: 'bar',
+			        data: []
+			    }]
+			});
+    	}
+
+    	function createTestReport(showDivId,jsonURL){
+    		var myChart = echarts.init(document.getElementById(showDivId));
+    		// 初始化report对象
+			initReport(myChart);
+			myChart.showLoading({text: '正在努力的读取数据中...'  });
+    		// 调用后台获取json数据
+    		setInterval(callbackFn(myChart,jsonURL), 3000);
+    	}
+    </script>
+
+    <script type="text/javascript">
+    	 $(document).ready(function(){
+    	 	var showDivId = 'main';
+    	 	var jsonURL = "dynechart_data";
+    		createTestReport(showDivId,jsonURL);
+        });
+    </script>
+</body>
+</html>

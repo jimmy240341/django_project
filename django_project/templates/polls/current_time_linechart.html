@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>echarts</title>
+    <!--引入ECharts文件-->
+    {% load static %}
+    <script type="text/javascript" src="{% static 'js/echarts/echarts-all.js' %}"></script>
+     <!--<script type="text/javascript" src="echarts/echarts.min.js"></script>-->
+    <style type="text/css">
+        * {
+            padding: 0;
+ margin: 0;
+ }
+    </style>
+</head>
+<body>
+    <p>Echarts举例：</p><br />
+    <div id="main" style="width: 800px; height: 800px;margin: auto;"></div>
+       <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+ var option = {
+    title: {
+        text: '曲线图',
+     },
+     tooltip: {
+        trigger: 'axis',
+     },
+     legend: {
+        data: ['销售'],
+     },
+    toolbox: {
+        show: true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        },
+    },
+    xAxis:{
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    },
+    yAxis: {
+        type: 'value',
+    },
+    series: [
+        {
+            type: 'line',
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+        },
+    ],
+};
+if (option && typeof option === "object") {
+     myChart.setOption(option, true);
+ }
+ </script>
+</body>
+</html>
